@@ -1,0 +1,14 @@
+{
+  "name": "surveyparser",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.pl",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Artur Delura",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^2.4.1"
+  }
+}
