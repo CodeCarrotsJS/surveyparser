@@ -6,44 +6,106 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 </head>
 <body>
+<div class="row">
+	<div class="col-md-12">
+		<div id="main"></div>
+	</div>
+</div>
+
+<script></script>
+
+<script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+<script id="records-template" type="text/x-handlebars-template">
+	{{#each records}}
+		{{> record}}
+	{{/each}}
+</script>
+
+<script id="record-partial" type="text/x-handlebars-template">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<p>Beata delura <b>bdelura@gmail.com</b></p>
+			<p>{{name}} <b>{{email}}</b></p>
 		</div>
 		<div class="panel-body">
 			<table class="table table-striped">
 				<tr>
-					<td><b>Umiejętność programowania</b></td><td>Znam podstawy programowania</td>
+					<td><b>Czy potrafię programować?</b></td><td>{{programming}}</td>
 				</tr>
 				<tr>
-					<td><b>Języki</b></td><td>
-						HTML: <b>Średniozaawansowana</b>
-						CSS: <b>Średniozaawansowana</b>
-						JavaScript: <b>Podstawy</b>
-						HTML: <b>Średniozaawansowana</b>
+					<td><b>Jakie znam języki?</b></td>
+					<td>
+						{{#each languages}}
+						{{@key}}: <b>{{this}}</b>
+						{{/each}}
 					</td>
 				</tr>
 				<tr>
-					<td><b>Doświadczenie w tworzeniu stron</b></td><td>Tak. Aktualnie pracuje jako koder HTML i CSS.</td>
+					<td><b>Mam doświadczenie w tworzeniu stron?</b></td><td>{{experience}}</td>
 				</tr>
 				<tr>
-					<td><b>Zainteresowania</b></td><td>Projektowanie stron www, Pisanie stron www, Użyteczność stron www (User experience)</td>
+					<td><b>Zainteresowania</b></td>
+					<td>
+						{{#each interests}}
+						{{this}},
+						{{/each}}
+					</td>
 				</tr>
 				<tr>
-					<td><b>Czemu chcesz się uczyć JS</b></td><td>W gimnazjum byłam w klasie o profilu informatycznym, niestety sporo wody upłynęło od tamtego czasu. Jest jednak nadzieja ! Od tego tygodnia rozpoczynam kurs na ASP w ramach którego planowane są zajęcia z grafiki komputerowej :) Nie wspominając, że zamierzam przejść egzaminy na kierunek: Grafika :)</td>
+					<td><b>Czemu chcę się uczyć JavaScript?</b></td><td>{{whyWantToLearn}}</td>
 				</tr>
 				<tr>
-					<td><b>Czy chcesz wziąć udział w kursie?</b></td><td>Zdecydowanie tak!</td>
+					<td><b>Czy chcę wziąć udział w kursie?</b></td><td>{{wantTakeaPart}}</td>
 				</tr>
 				<tr>
-					<td><b>Na zajęciach będę</b></td><td>Rozwiązywała ciekawe zadania, Dzieliła się wiedzą z innymi uczestniczkami</td>
+					<td><b>Na zajęciach będę:</b></td>
+					<td>
+						{{#each courseExceptations}}
+						{{this}},
+						{{/each}}
+					</td>
 				</tr>
 				<tr>
-					<td><b>Pod koniec kursu będę</b></td><td>Miała w portfolio ciekawy projekt</td>
+					<td><b>Po ukończeniu kursu będę:</b></td>
+					<td>
+						{{#each atTheEndOfCourseIwill}}
+						{{this}},
+						{{/each}}
+					</td>
+				</tr>
+				<tr>
+					<td><b>Czy chcę się rozwijać po zajęciach?</b></td><td>{{willingToWorkMore}}</td>
+				</tr>
+				<tr>
+					<td><b>Dni w które mogę przyjść na zajęcia:</b></td>
+					<td>
+						{{#each days}}
+						{{this}},
+						{{/each}}
+					</td>
+				</tr>
+				<tr>
+					<td><b>Moje pytania i komentarze:</b></td><td>{{questionsOrComments}}</td>
 				</tr>
 			</table>
 		</div>
-		<div class="panel-footer">Panel footer</div>
 	</div>
+</script>
+
+<script>
+	$(function() {
+		/* http://blog.teamtreehouse.com/handlebars-js-part-2-partials-and-helpers */
+		var template = Handlebars.compile($('#records-template').html());
+
+		Handlebars.registerPartial('record', $('#record-partial').html());
+
+		$.getJSON('./results.json', function(results) {
+			var a = template({records: results});
+			$('#main').html(a);
+		});
+	});
+</script>
+
 </body>
 </html>
