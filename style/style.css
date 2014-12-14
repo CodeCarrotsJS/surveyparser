@@ -1,0 +1,25 @@
+#main {
+  margin: 0 auto;
+  max-width: 1240px;
+}
+
+.panel.record .table>thead>tr>th,
+.panel.record .table>tbody>tr>th,
+.panel.record .table>tfoot>tr>th,
+.panel.record .table>thead>tr>td,
+.panel.record .table>tbody>tr>td,
+.panel.record .table>tfoot>tr>td {
+  padding: 4px;
+}
+
+.panel.record .table {
+  margin-bottom: 0;
+}
+
+.panel.record .panel-body {
+  padding: 0;
+}
+
+.panel.record .panel-heading > p {
+  margin: 0;
+}
